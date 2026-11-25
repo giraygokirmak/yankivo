@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title description">
+  <title id="title">Yanviko</title>
+  <desc id="description">Lacivert zemin üzerinde, turkuaz yankı dalgalarıyla çevrili bir mikrofon ve Yanviko yazısı.</desc>
+  <defs>
+    <linearGradient id="aura" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#273664"/>
+      <stop offset="1" stop-color="#10172f"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#55e5d5"/>
+      <stop offset="1" stop-color="#7cecba"/>
+    </linearGradient>
+  </defs>
+  <!-- A consistent opaque banner: the SVG does not depend on CSS or fonts. -->
+  <rect width="1200" height="360" rx="36" fill="#10172f"/>
+  <g transform="translate(32 32)">
+    <rect width="296" height="296" rx="78" fill="url(#aura)"/>
+    <path d="M0 78C0 34.9 34.9 0 78 0h140c43.1 0 78 34.9 78 78" fill="none" stroke="#526393" stroke-opacity=".55" stroke-width="2"/>
+    <!-- Voice capsule and circuit stem. -->
+    <rect x="115" y="63" width="66" height="116" rx="33" fill="url(#signal)"/>
+    <path d="M148 179v40m-27 0h54" fill="none" stroke="url(#signal)" stroke-width="10" stroke-linecap="round"/>
+    <g fill="none" stroke="#163d50" stroke-width="6" stroke-linecap="round">
+      <path d="M136 95v30m24-30v30m-24 20v12m24-12v12"/>
+    </g>
+    <!-- Outgoing echoes on both sides. -->
+    <g fill="none" stroke="url(#signal)" stroke-width="9" stroke-linecap="round">
+      <path d="M88 107c-17 22-17 50 0 72m-26-104c-31 38-31 85 0 123"/>
+      <path d="M208 107c17 22 17 50 0 72m26-104c31 38 31 85 0 123"/>
+    </g>
+    <g fill="#8fb6df">
+      <circle cx="62" cy="234" r="4"/><circle cx="234" cy="234" r="4"/>
+    </g>
+    <path d="M62 238v17h36m136-17v17h-36" fill="none" stroke="#8fb6df" stroke-opacity=".5" stroke-width="2"/>
+  </g>
+  <!-- Custom wordmark; all letterforms are paths, not embedded fonts. -->
+  <g fill="#f3f9ff" transform="translate(400 105) scale(.9 1)">
+    <!-- Y -->
+    <path d="M0 0h31l31 58L93 0h31L77 82v68H47V82Z"/>
+    <!-- a -->
+    <path fill-rule="evenodd" d="M207 41c35 0 54 18 54 51v58h-27v-13c-9 10-22 16-39 16-27 0-45-16-45-39 0-25 20-39 52-39h31v-3c0-14-9-22-27-22-14 0-23 5-28 15l-27-7c8-22 27-37 56-37Zm-6 56c-15 0-24 6-24 16 0 9 9 15 22 15 18 0 34-12 34-27v-4h-32Z"/>
+    <!-- n -->
+    <path d="M288 43h27v13c10-11 21-16 35-16 25 0 40 16 40 44v66h-29V91c0-15-7-23-20-23-15 0-24 10-24 28v54h-29Z"/>
+    <!-- v -->
+    <path d="M413 43h30l27 78 27-78h30l-42 111h-30Z"/>
+    <!-- i -->
+    <path d="M548 43h29v107h-29ZM548 0h29v28h-29Z"/>
+    <!-- k -->
+    <path d="M605 0h29v87l37-44h35l-43 48 47 59h-35l-41-53v53h-29Z"/>
+    <!-- o -->
+    <path fill-rule="evenodd" d="M776 40c35 0 60 23 60 57s-25 56-60 56-60-22-60-56 25-57 60-57Zm0 27c-18 0-31 12-31 30s13 29 31 29 31-11 31-29-13-30-31-30Z"/>
+  </g>
+  <g transform="translate(404 295)" stroke="#55e5d5" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M0 0h110m16 0h22m16 0h22m16 0h54"/>
+  </g>
+  <g transform="translate(285 295)" fill="#8fb6df">
+    <circle cx="0" cy="0" r="4"/>
+  </g>
+</svg>

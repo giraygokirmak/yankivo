@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">Yanviko simgesi</title>
+  <desc id="description">Lacivert devre kartı üzerinde turkuaz mikrofon ve iki yanda yankı dalgaları.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#273664"/>
+      <stop offset="1" stop-color="#10172f"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#55e5d5"/>
+      <stop offset="1" stop-color="#7cecba"/>
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="480" height="480" rx="124" fill="url(#background)"/>
+  <path d="M16 140C16 71.6 71.6 16 140 16h232c68.4 0 124 55.6 124 124" fill="none" stroke="#526393" stroke-opacity=".55" stroke-width="3"/>
+  <rect x="196" y="79" width="120" height="210" rx="60" fill="url(#signal)"/>
+  <g fill="none" stroke="#163d50" stroke-width="10" stroke-linecap="round">
+    <path d="M234 137v52m44-52v52m-44 37v21m44-21v21"/>
+  </g>
+  <path d="M256 289v72m-50 0h100" fill="none" stroke="url(#signal)" stroke-width="18" stroke-linecap="round"/>
+  <g fill="none" stroke="url(#signal)" stroke-width="17" stroke-linecap="round">
+    <path d="M151 158c-30 39-30 89 0 128m-46-176c-56 67-56 148 0 220"/>
+    <path d="M361 158c30 39 30 89 0 128m46-176c56 67 56 148 0 220"/>
+  </g>
+  <g fill="#8fb6df">
+    <circle cx="105" cy="405" r="7"/><circle cx="407" cy="405" r="7"/>
+  </g>
+  <path d="M105 412v29h66m236-29v29h-66" fill="none" stroke="#8fb6df" stroke-opacity=".5" stroke-width="3"/>
+</svg>
