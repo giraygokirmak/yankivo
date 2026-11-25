@@ -1,13 +1,13 @@
 # Firmware
 
-Bu klasör, ESP32-WROOM / NodeMCU-32S üzerinde çalışacak firmware için ayrılmıştır.
+This directory is reserved for firmware running on the ESP32-WROOM / NodeMCU-32S.
 
-Şu anda derlenebilir firmware bulunmamaktadır. İlk uygulama kapsamı:
+There is no buildable firmware yet. The initial implementation will:
 
-1. [Donanım pinlerindeki](../hardware/README.md) I²S saat ve veri hatlarını doğrulamak.
-2. Mikrofon ve MAX98357A sürücülerini ayrı testlerle çalıştırmak.
-3. Amfi GPIO27 kontrolünü ve ses döngüsünü eklemek.
-4. Güvenli Wi-Fi akışı ve yapılandırma katmanını uygulamak.
-5. Doğrulanmış derleme/yükleme komutlarını ve örnek yapılandırmayı burada belgelemek.
+1. Validate the I2S clock and data lines documented in [hardware/README.md](../hardware/README.md).
+2. Test the microphone and MAX98357A drivers separately.
+3. Add amplifier control on GPIO27 and an audio loop.
+4. Implement secure Wi-Fi streaming and configuration.
+5. Document verified build/flash commands and provide an example configuration here.
 
-Ağ ve gizli anahtarlar kaynak dosyalarına veya Git geçmişine yazılmamalıdır.
+Network credentials and secrets must not be written into source files or Git history.

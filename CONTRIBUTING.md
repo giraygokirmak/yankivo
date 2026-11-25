@@ -1,16 +1,29 @@
-# Katkı rehberi
+# Contributing to Yankivo
 
-Yanviko erken tasarım aşamasındadır. Donanım doğrulaması, protokol tasarımı ve dokümantasyon
-katkıları özellikle yararlıdır.
+Thank you for your interest! Yankivo is in an early skeleton phase: the repository layout,
+branding, and hardware notes are in place, but the firmware and the OpenClaw connector have
+not been written yet.
 
-## Katkı verirken
+## How to contribute right now
 
-1. Büyük davranış veya protokol değişiklikleri için önce bir issue açın.
-2. Küçük ve odaklı değişiklikler tercih edin.
-3. Belgelerin, uygulanan davranışı doğru anlattığından emin olun; hedefleri çalışır özellik
-   gibi sunmayın.
-4. Kimlik bilgisi, kişisel ses kaydı veya erişim jetonu eklemeyin.
-5. Donanım değişikliklerinde kullanılan kart revizyonu ve test koşullarını belirtin.
-6. Uygulama eklendiğinde ilgili otomatik testleri ve doğrulama komutlarını çalıştırın.
+- Open an issue to propose firmware architecture, audio-protocol design, or hardware support.
+- Improve documentation clarity or accuracy.
+- Suggest branding or asset refinements.
 
-Katkı göndererek değişikliğin MIT Lisansı kapsamında yayınlanmasını kabul edersiniz.
+## Workflow
+
+1. Open or comment on an issue describing what you plan to change.
+2. Create a focused branch and make your changes.
+3. For firmware work, describe the board, toolchain version, and any hardware dependencies
+   in the pull-request description.
+4. Submit the pull request and reference the issue.
+
+## Style
+
+- All documentation, README content, and code comments must be written in English.
+- Follow the conventions already used in the repository.
+
+## Reporting security issues
+
+Please do not include real credentials, tokens, or personal data in issue reports. Mark any
+security-sensitive finding clearly so it can be handled responsibly.

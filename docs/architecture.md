@@ -1,65 +1,68 @@
-# Yanviko mimarisi
+# Yankivo architecture
 
-Bu belge hedeflenen tasarımı açıklar. Henüz uygulanmış bir iletişim protokolü veya üretim
-hazır sistem iddiası taşımaz.
+This document describes the target design. It does not claim that a communication protocol
+or production-ready system has been implemented.
 
-## Sistem bileşenleri
+## System components
 
 ### 1. ESP32 firmware
 
-- I²S mikrofon ve MAX98357A amfi sürücüleri
-- Örnekleme, çerçeveleme ve ses tamponları
-- Amfi kapatma/açma ve hata durumları
-- Wi-Fi ve cihaz kimliği yapılandırması
-- Sunucuya ses gönderme, gelen sesi çalma ve bağlantıyı izleme
+- I2S microphone and MAX98357A amplifier drivers
+- Sampling, framing, and audio buffering
+- Amplifier enable/shutdown and error handling
+- Wi-Fi and device identity configuration
+- Sending audio to the server, playing received audio, and maintaining the connection
 
-### 2. OpenClaw bağdaştırıcısı
+### 2. OpenClaw connector
 
-- Cihaz kimlik doğrulaması ve oturum yaşam döngüsü
-- Konuşma-metin (`STT`) ve metin-konuşma (`TTS`) sağlayıcılarının bağlanması
-- OpenClaw istek/yanıt akışı ile cihaz oturumu arasında eşleme
-- Ses akışı ile sıraya alma, iptal ve zaman aşımı denetimi
+- Device authentication and session lifecycle
+- Integration with speech-to-text (STT) and text-to-speech (TTS) providers
+- Mapping OpenClaw requests and responses to device sessions
+- Queueing, cancellation, and timeout handling for audio streams
 
-OpenClaw’un bulunduğu ortama ve seçilen entegrasyon API’sine göre bağdaştırıcı tasarımı
-ayrıca kesinleştirilecektir.
+The connector's design will be finalized according to the OpenClaw environment and the
+selected integration API.
 
-### 3. Ses ve kontrol protokolü
+### 3. Audio and control protocol
 
-İlk uygulamadan önce aşağıdakiler açık bir sözleşme olarak belgelenmelidir:
+The following points should be documented as an explicit contract before the first
+implementation:
 
-| Konu | İzlenecek yaklaşım |
-|---|---|
-| Taşıma | TLS destekli WebSocket veya eşdeğer güvenli akış |
-| Kimlik doğrulama | Gizli anahtarları dışarıda tutulan cihaz jetonu |
-| Kontrol mesajları | Sürümlü, şemayla doğrulanan JSON |
-| Ses paketleri | Başlık, sıra numarası ve zaman bilgisi içeren ikili çerçeveler |
-| Başlangıç biçimi | PCM; bant genişliği gerekirse Opus daha sonra değerlendirilecek |
-| Örnekleme | Donanım STT/TTS sağlayıcılarıyla birlikte belirlenecek; varsayılan 16 kHz / 16-bit / mono |
-| Dayanıklılık | Kalp atışı, yeniden bağlanma, zaman aşımı ve sınırlı tampon |
+| Topic | Proposed approach |
+| --- | --- |
+| Transport | WebSocket with TLS or equivalent secure streaming |
+| Authentication | A device token, kept outside the repository |
+| Control messages | Versioned, schema-validated JSON |
+| Audio packets | Binary frames containing a header, sequence number, and timing information |
+| Initial format | PCM; evaluate Opus later if bandwidth requires it |
+| Sampling | To be decided with the STT/TTS providers; initial proposal is 16 kHz / 16-bit / mono |
+| Reliability | Heartbeats, reconnection, timeouts, and bounded buffers |
 
-Bu değerler bağlayıcı sözleşme değil, ilk prototip için başlangıç kararlarıdır.
+These values are starting decisions for a prototype, not a binding contract.
 
-## Oturum akışı
+## Session flow
 
-1. Cihaz yapılandırmayı ve ses sürücülerini başlatır.
-2. Sunucuya kimliği doğrulanmış bir bağlantı kurar ve yeteneklerini bildirir.
-3. Mikrofon çerçevelerini gönderir; gerekirse konuşma başlangıç/bitiş bilgisi ekler.
-4. Bağdaştırıcı STT, OpenClaw ve TTS aşamalarını yönetir.
-5. Yanıt sesi cihaza akıtılır ve amfi yalnızca çalma sırasında etkinleştirilir.
-6. Yeni istek, iptal veya bağlantı kaybında mevcut oynatma güvenli biçimde sonlandırılır.
+1. The device initializes its configuration and audio drivers.
+2. It establishes an authenticated connection to the server and reports its capabilities.
+3. It sends microphone frames, optionally adding voice activity information.
+4. The connector manages the STT, OpenClaw, and TTS stages.
+5. The response audio is streamed to the device, and the amplifier is enabled only during
+   playback.
+6. A new request, cancellation, or disconnection safely stops current playback.
 
-## Güvenlik ilkeleri
+## Security principles
 
-- Wi-Fi, sunucu, STT/TTS veya OpenClaw kimlik bilgileri depoya eklenmez.
-- Üretim bağlantılarında TLS sertifika doğrulaması devre dışı bırakılmaz.
-- Cihaz jetonları gerektiğinde iptal edilebilir ve tek cihaza özel olabilir.
-- Mikrofonun ne zaman gönderim yaptığı açıkça görünür olmalıdır.
-- Kayıt, gizli anahtar ve kişisel konuşma içeriği loglara yazılmaz.
+- Wi-Fi, server, STT/TTS, and OpenClaw credentials must never be committed to the repository.
+- TLS certificate verification must not be disabled in production connections.
+- Device tokens should be revocable and can be specific to a single device.
+- It must be clearly visible when the microphone is transmitting.
+- Secrets and personal conversation content must not be written to logs.
 
-## Geliştirme aşamaları
+## Development milestones
 
-- **Aşama 0 — Donanım doğrulaması:** Besleme, pinler, tek yönlü mikrofon ve hoparlör testi.
-- **Aşama 1 — Ses döngüsü:** Ağ olmadan mikrofon → amfi döngüsü ve seviye ölçümü.
-- **Aşama 2 — Güvenli akış:** Sürümlü protokol, cihaz oturumu ve yeniden bağlanma.
-- **Aşama 3 — OpenClaw:** STT/agent/TTS entegrasyonu ve uçtan uca yanıt.
-- **Aşama 4 — Ürünleştirme:** Yapılandırma arayüzü, testler, muhafaza ve kurulum rehberi.
+- **Stage 0 — Hardware validation:** Power, pins, independent microphone and speaker tests.
+- **Stage 1 — Audio loop:** Microphone-to-amplifier loop and level measurements without the
+  network.
+- **Stage 2 — Secure streaming:** A versioned protocol, device sessions, and reconnection.
+- **Stage 3 — OpenClaw:** STT/agent/TTS integration and end-to-end responses.
+- **Stage 4 — Productization:** Configuration interface, tests, enclosure, and setup guide.

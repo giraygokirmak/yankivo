@@ -1,71 +1,69 @@
+# Yankivo
+
 <div align="center">
-  <img src="assets/brand/yanviko-logo.svg" alt="Yanviko" width="760">
+  <img src="assets/brand/yankivo-logo.svg" alt="Yankivo" width="760">
 
-  **OpenClaw için ESP32 tabanlı, açık kaynak sesli arayüz**
+  **An open-source, ESP32-based voice interface for OpenClaw**
 
-  Dinle. Düşün. Yankılan.
+  Listen. Think. Echo.
 </div>
 
----
+> **Status:** The project skeleton and hardware documentation are under development. This
+> repository does not yet contain working firmware or an OpenClaw integration.
 
-> **Durum:** Proje iskeleti ve donanım dokümantasyonu hazırlanıyor. Depoda henüz çalışan
-> firmware veya OpenClaw entegrasyonu bulunmuyor.
+Yankivo aims to turn an ESP32-WROOM-based NodeMCU-32S and a Google AIY Voice HAT into a
+minimal, open voice peripheral for OpenClaw. The name combines the Turkish word "yankı"
+("echo") with the idea of voice.
 
-Yanviko; ESP32-WROOM tabanlı NodeMCU-32S ve Google AIY Voice HAT donanımını, OpenClaw
-ile çift yönlü sesli etkileşim kuracak bir yardımcıya dönüştürmeyi hedefler. Proje adı
-“yankı” ve “voice/vox” çağrışımlarını birleştirir.
+ESP32 handles microphone capture, audio output, and microphone status indication. Audio is
+transported over Wi-Fi; speech-to-text, the agent, and text-to-speech run on a server so the
+microcontroller does not need to perform those workloads locally.
 
-## Hedefler
+## Features
 
-- I²S mikrofon ile ses yakalama ve I²S amfi ile yanıtı seslendirme
-- Sıkıştırılmış ses akışı için Wi-Fi üzerinden düşük gecikmeli iletişim
-- OpenClaw tarafında konuşma-metin, ajan ve metin-konuşma orkestrasyonu
-- Ağ ve sunucu kimlik bilgilerini cihazın dışında güvenle yapılandırma
-- Yeniden üretilebilir bağlantı şeması, firmware ve entegrasyon dokümantasyonu
+- Full-duplex or half-duplex audio over I2S on an ESP32
+- Reusable board and pin mappings, with the mapping for this setup in `hardware/README.md`
+- An OpenClaw connector layer that forwards microphone audio and plays back responses
+- A clear, server-side pipeline for STT, the agent, and TTS
+- No third-party API key or Wi-Fi credential baked into the firmware source
 
-## Depo yapısı
+## Architecture
 
-```text
-yanviko/
-├── firmware/          # ESP32 firmware kaynakları ve yapılandırması
-├── openclaw/          # OpenClaw bağdaştırıcısı ve entegrasyon belgeleri
-├── hardware/          # Pin eşlemesi, bağlantı şeması ve kart notları
-├── docs/              # Mimari, kurulum ve geliştirme dokümantasyonu
-└── assets/brand/      # Özgün SVG logo ve simge
+```
+Microphone ──I2S──> ESP32 ──Wi-Fi──> Server (OpenClaw + STT + TTS)
+                                      │
+Speaker ───<──I2S─── ESP32 <──Wi-Fi───┘
 ```
 
-## Mimari hedef
+The ESP32 streams captured audio to the server and receives synthesized speech to play.
+The server-side connector and protocol are defined separately; see `docs/architecture.md`.
 
-```mermaid
-flowchart LR
-    A[Mikrofon / I²S] --> B[ESP32 firmware]
-    B <-->|Wi-Fi: ses ve kontrol akışı| C[OpenClaw bağdaştırıcısı]
-    C --> D[OpenClaw / STT / TTS]
-    D --> C
-    C --> B
-    B --> E[MAX98357A amfi / Hoparlör]
-```
+## Repository layout
 
-Protokol, kimlik doğrulama ve ses formatı henüz kesinleşmemiştir. Uygulama başladığında
-bu şema ve ilgili belgeler gerçek davranışa göre güncellenecektir.
+- `firmware/` — ESP32 firmware (Arduino or ESP-IDF) and board configuration
+- `hardware/` — Pin mappings, wiring notes, and hardware constraints
+- `openclaw/` — OpenClaw integration notes and connector design
+- `docs/` — Architecture, protocol, and development documentation
+- `assets/brand/` — Logo and icon source files
 
-## Başlangıç
+## Getting started
 
-1. [Donanım ve pin eşlemesini](hardware/README.md) kontrol et.
-2. [Mimariyi ve kapsamı](docs/architecture.md) incele.
-3. Firmware ve OpenClaw entegrasyonu henüz uygulanmadığından, bu depoyu şimdilik
-   donanım doğrulama ve tasarım çalışmaları için kullan.
+Read `docs/architecture.md` for the system design and `hardware/README.md` for the wiring
+used by this project. No firmware build or flashing instructions are included yet; those will
+be added once the first working firmware lands.
 
-## Marka
+## Branding
 
-Logo ve simge `assets/brand/` altında kaynak SVG dosyaları olarak sunulur. Harici yazı
-tipi veya görsel bağımlılığı yoktur; harfler ve şekiller vektör yollarından oluşturulmuştur.
+The Yankivo logo and icon are provided as SVG and PNG in `assets/brand/`. The wordmark uses
+a custom geometric, all-lowercase geometric treatment with a microphone between radiating
+echo arcs. See `assets/brand/README.md` for colors and usage guidance.
 
-## Lisans
+## License
 
-Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
+MIT. See `LICENSE`, copyright Macit Giray Gökırmak, 2026.
 
----
+## Contributing
 
-Google AIY Voice, OpenClaw ve diğer ürün adları ilgili sahiplerine aittir. Yanviko bağımsız
-bir projedir; bu ürünlerin sahipleri tarafından desteklendiği veya onaylandığı anlamına gelmez.
+This project is in an early skeleton phase. If you would like to help shape the firmware,
+protocol, or integration, please open an issue describing your idea before submitting a large
+pull request.

@@ -1,17 +1,17 @@
-# OpenClaw entegrasyonu
+# OpenClaw integration
 
-Bu klasör, Yanviko cihazları ile OpenClaw arasındaki bağdaştırıcıyı ve protokol sözleşmesini
-barındıracaktır.
+This directory will contain the connector and protocol contract between Yankivo devices and
+OpenClaw.
 
-Şu anda çalışır bir entegrasyon bulunmamaktadır. Uygulamadan önce kullanılacak OpenClaw
-sürümü, desteklenen eklenti/araç API’si ve STT/TTS sağlayıcıları belirlenecektir.
+No working integration exists yet. Before implementation, the OpenClaw version, supported
+plugin/tool API, and STT/TTS providers must be selected.
 
-Planlanan sorumluluklar:
+Planned responsibilities:
 
-- Cihaz kaydı ve kimlik doğrulama
-- Ses ve kontrol oturumu
-- STT → OpenClaw → TTS orkestrasyonu
-- Yanıt iptali, zaman aşımı ve bağlantı hataları
-- Gizli bilgi içermeyen gözlemlenebilirlik ve entegrasyon testleri
+- Device registration and authentication
+- Audio and control sessions
+- STT → OpenClaw → TTS orchestration
+- Response cancellation, timeouts, and connection errors
+- Observability and integration tests without logging secrets
 
-Hedef mimari için [docs/architecture.md](../docs/architecture.md) dosyasına bakın.
+See [docs/architecture.md](../docs/architecture.md) for the target architecture.

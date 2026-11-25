@@ -1,33 +1,33 @@
-# Yanviko görsel kimliği
+# Yankivo visual identity
 
-## Dosyalar
+## Files
 
-- `yanviko-logo.svg`: README ve yatay kullanım için logo + simge, 1200 × 360 görünüm alanı.
-- `yanviko-logo.png`: Aynı tasarımın 1200 × 360 raster çıktısı.
-- `yanviko-icon.svg`: Kare avatar, uygulama simgesi ve favicon kaynak dosyası, 512 × 512.
-- `yanviko-icon.png`: Aynı simgenin 512 × 512 raster çıktısı.
+- `yankivo-logo.svg`: Horizontal wordmark and icon, 1200 × 360 view box; used in the README.
+- `yankivo-logo.png`: 1200 × 360 raster export of the logo.
+- `yankivo-icon.svg`: Square source for avatars, application icons, and favicons; 512 × 512.
+- `yankivo-icon.png`: 512 × 512 raster export of the icon.
 
-## Tasarım dili
+## Design language
 
-Mikrofon kapsülü ve altındaki devre hattı, Yanviko’nun ses ve donanım kimliğini; iki yandaki
-çift dalga ise dinleme–yanıtlama döngüsünü temsil eder. Derin lacivert donanımı, turkuazdan
-nane yeşiline geçen sinyal rengi ise canlı ses akışını ifade eder.
+The microphone capsule and circuit stem beneath it represent voice and hardware. The paired
+arcs on either side represent the listen-and-respond cycle. Deep navy represents the device;
+the turquoise-to-mint gradient represents a live audio signal.
 
-| Renk | Kod | Kullanım |
-|---|---|---|
-| Gece | `#10172F` | Ana zemin |
-| Lacivert | `#273664` | Zemin geçişi |
-| Sinyal | `#55E5D5` → `#7CECBA` | Mikrofon ve ses dalgaları |
-| Yazı | `#F3F9FF` | Lacivert zemin üzerindeki yazı |
-| Devre | `#8FB6DF` | İnce bağlantı detayları |
+| Color | Hex | Use |
+| --- | --- | --- |
+| Night | `#10172F` | Main background |
+| Navy | `#273664` | Background gradient |
+| Signal | `#55E5D5` → `#7CECBA` | Microphone and audio waves |
+| Wordmark | `#F3F9FF` | Lettering on the navy background |
+| Circuit | `#8FB6DF` | Subtle circuit details |
 
-Logo, lacivert bir yatay pankart olarak tasarlanmıştır; GitHub’ın açık ve koyu temalarında aynı
-görünür. Harici yazı tipi, CSS veya görsel bağımlılığı yoktur; tüm yazılar ve şekiller SVG
-yollarıdır.
+The logo appears on a navy horizontal banner, so it looks the same on GitHub's light and dark
+themes. There are no external font, CSS, or image dependencies; the lettering and shapes are
+all SVG paths.
 
-## Kullanım
+## Usage
 
-- Simgenin ve yazının etrafına en az simge genişliğinin %10’u kadar boşluk bırakın.
-- Logoyu eğmeyin, renk geçişlerini değiştirmeyin veya unsurlarını yeniden konumlandırmayın.
-- Küçük boyutlarda yalnızca kare simgeyi kullanın.
-- SVG kaynak dosyasını koruyun; raster dışa aktarımları 1× ve 2× boyutlarda üretin.
+- Keep clear space around the icon and wordmark of at least 10% of the icon's width.
+- Do not skew the logo, change its gradients, or reposition its elements.
+- Use only the square icon at small sizes.
+- Preserve the SVG sources; generate raster exports at 1× and 2× sizes as needed.

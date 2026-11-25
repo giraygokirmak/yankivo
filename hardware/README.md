@@ -1,54 +1,53 @@
-# Donanım ve bağlantılar
+# Hardware and wiring
 
-## Hedef donanım
+## Target hardware
 
-- ESP32-WROOM tabanlı NodeMCU-32S
+- NodeMCU-32S based on the ESP32-WROOM
 - Google AIY Voice HAT
 
-> Aşağıdaki eşleme mevcut proje notundaki hedef bağlantıyı belgeler; test edilmiş bir PCB
-> şeması veya üretim onayı değildir. İlk enerji vermeden önce kart revizyonunu ve sinyal
-> yönlerini ölçerek doğrula.
+> The following mapping documents the planned wiring from the project notes. It is not a
+> tested PCB schematic or a production approval. Verify the board revision and signal
+> directions before applying power for the first time.
 
 ## NodeMCU-32S ↔ Voice HAT
 
-| NodeMCU-32S | Voice HAT fiziksel pini | İşlev | Yön |
-|---|---|---|---|
-| GPIO26 | Pin 12 | I²S bit saati (`BCLK`) | ESP32 → HAT |
-| GPIO25 | Pin 35 | I²S kelime saati (`LRCLK` / `WS`) | ESP32 → HAT |
-| GPIO22 | Pin 40 | I²S veri çıkışı (`DOUT`) | ESP32 → MAX98357A |
-| GPIO34 | Pin 38 | I²S veri girişi (`DIN`) | Mikrofon → ESP32 |
-| GPIO27 | Pin 36 | Amfi etkin / kapatma kontrolü | ESP32 → HAT |
-| 3V3 | Pin 17 | 3,3 V hattı | Güç |
-| VIN / 5V | Pin 2 **veya** 4 | HAT 5 V beslemesi | Güç |
-| GND | Pin 6 | Ortak referans | Güç |
+| NodeMCU-32S | Voice HAT physical pin | Function | Direction |
+| --- | --- | --- | --- |
+| GPIO26 | Pin 12 | I2S bit clock (`BCLK`) | ESP32 → HAT |
+| GPIO25 | Pin 35 | I2S word clock (`LRCLK` / `WS`) | ESP32 → HAT |
+| GPIO22 | Pin 40 | I2S data output (`DOUT`) | ESP32 → MAX98357A |
+| GPIO34 | Pin 38 | I2S data input (`DIN`) | Microphone → ESP32 |
+| GPIO27 | Pin 36 | Amplifier enable/shutdown control | ESP32 → HAT |
+| 3V3 | Pin 17 | 3.3 V rail | Power |
+| VIN / 5V | Pin 2 **or** 4 | HAT 5 V supply | Power |
+| GND | Pin 6 | Common ground | Power |
 
-## Firmware pin tanımları için adlandırma
+## Names for firmware pin definitions
 
-| Sabit | GPIO | Not |
-|---|---:|---|
-| `I2S_BCLK` | 26 | ESP32 çıkışı |
-| `I2S_LRCLK` | 25 | ESP32 çıkışı |
-| `I2S_DOUT` | 22 | Amfiye seri veri |
-| `I2S_DIN` | 34 | Yalnız giriş; mikrofondan seri veri |
-| `AMP_ENABLE` | 27 | Kart revizyonuna göre aktif seviyeyi doğrula |
+| Constant | GPIO | Note |
+| --- | ---: | --- |
+| `I2S_BCLK` | 26 | ESP32 output |
+| `I2S_LRCLK` | 25 | ESP32 output |
+| `I2S_DOUT` | 22 | Serial data to the amplifier |
+| `I2S_DIN` | 34 | Input only; serial data from the microphone |
+| `AMP_ENABLE` | 27 | Verify the active level for the board revision |
 
-Tarif edilen bağlantılarda iki I²S veri yönü birlikte kullanılır. Gerçek sürücü tasarımında
-saat paylaşımı, tam çift yönlü veri yolu ve kullanılan mikrofon kartının faz/slot ayarları
-ayrıca doğrulanmalıdır.
+Both I2S data directions are used in this wiring. The driver design must separately validate
+clock sharing, the full-duplex data path, and the microphone board's phase/slot settings.
 
-## Güvenlik ve doğrulama
+## Safety and validation
 
-- Enerji bağlantılarını kartlar enerjisizken yap.
-- 5 V pini için pin 2 ve pin 4’ten **yalnızca birini** kullan.
-- 3,3 V sinyalleri ile 5 V hatlarını karıştırma; GPIO’lara 5 V uygulama.
-- USB ve harici 5 V beslemesini birlikte kullanırken NodeMCU kartının güç yolunu kontrol et.
-- GPIO34 giriş pinidir; amfi kontrolü veya veri çıkışı olarak kullanılamaz.
-- Beslemeyi ilk kez vermeden önce VIN/5V–GND ve 3V3–GND arasında kısa devre kontrolü yap.
-- Mikrofon, amfi ve hoparlörü ayrı aşamalar olarak doğrula; ardından çift yönlü akışı test et.
+- Make power connections with both boards unpowered.
+- Use **only one** of physical pins 2 and 4 for the 5 V supply.
+- Do not confuse 3.3 V signals with 5 V power; do not apply 5 V to GPIO pins.
+- When using USB and external 5 V power together, check the NodeMCU board's power path.
+- GPIO34 is an input-only pin; it cannot be used for amplifier control or data output.
+- Before first power-up, check for shorts between VIN/5V and GND, and between 3V3 and GND.
+- Validate the microphone, amplifier, and speaker independently before testing two-way audio.
 
-## Üretilecek teknik çıktılar
+## Planned technical outputs
 
-- Kart revizyonlarına göre şema ve bağlantı diyagramı
-- Hoparlör gücü ve güç kaynağı bütçesi
-- Gürültü/EMI için GND ve besleme yerleşimi
-- Muhafaza, mikrofon açıklığı ve hoparlör montajı
+- Schematics and wiring diagrams for the relevant board revisions
+- Speaker power and power-supply budget
+- Ground and power placement for noise/EMI control
+- Enclosure, microphone opening, and speaker mounting
